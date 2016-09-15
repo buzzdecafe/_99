@@ -2,7 +2,7 @@
 (* last : 'a list -> 'a option *)
 let rec last = function
   | [] -> None
-  | x:[] -> Some x
+  | [x] -> Some x
   | x::xs -> last xs
 
   (* last ["a"; "b"; "c"; "d"] = Some "d"
