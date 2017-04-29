@@ -1,4 +1,4 @@
-# ocaml99
+# _99
 puzzles
 
 https://ocaml.org/learn/tutorials/99problems.html
