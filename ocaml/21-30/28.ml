@@ -12,12 +12,23 @@ let _ = assert ((length_sort [ ["a";"b";"c"]; ["d";"e"]; ["f";"g";"h"]; ["d";"e"
                              [ ["o"]; ["d"; "e"]; ["d"; "e"]; ["m"; "n"]; ["a"; "b"; "c"]; 
                                ["f"; "g"; "h"]; ["i"; "j"; "k"; "l"]])
 
-(* TODO *)
-let frequency_sort xs = List.fold_left 
+
+module Freq = Map.Make(struct type t = int let compare = compare end)
+let frequency_sort xs = 
+  List.fold_left 
+    (fun m ls ->  
+      let len = List.length ls in
+      try let zs = Freq.find len m in Freq.add len (ls::zs) m
+      with Not_found -> Freq.add len [ls] m
+    ) Freq.empty xs
+    |> Freq.bindings 
+    |> List.map snd
+    |> List.sort (fun a b -> (List.length a) - (List.length b))
+    |> List.fold_left (fun acc ws -> acc @ ws) []
 
 let _ = assert ((frequency_sort [ ["a";"b";"c"]; ["d";"e"]; ["f";"g";"h"]; ["d";"e"];
                                   ["i";"j";"k";"l"]; ["m";"n"]; ["o"]]) = 
-                                [ ["i"; "j"; "k"; "l"]; ["o"]; ["a"; "b"; "c"]; ["f"; "g"; "h"];
-                                  ["d"; "e"];["d"; "e"]; ["m"; "n"]])
+                                [ ["o"]; ["i"; "j"; "k"; "l"]; ["f"; "g"; "h"]; ["a"; "b"; "c"]; 
+                                  ["m"; "n"]; ["d"; "e"]; ["d"; "e"]])
 
 

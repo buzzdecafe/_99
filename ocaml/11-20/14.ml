@@ -1,9 +1,10 @@
 (* Duplicate the elements of a list. (easy) *)
 
 
-let dupe x = [x; x]
 
-let duplicate xs = List.map dupe xs |> List.concat
+let rec duplicate = function
+  | [] -> []
+  | x::xs -> x::x::(duplicate xs)
 
 
 let _ = assert (
