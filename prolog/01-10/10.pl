@@ -7,14 +7,7 @@ X = [[4,a],[1,b],[2,c],[2,a],[1,d],[4,e]]
 */
 
 /* 09.pl */
-pacc([], Ys, Acc) :- reverse(Acc, Ys).
-pacc([H|T], Ys, [[H|Hs]|Acc]) :- pacc(T, Ys, [[H, H |Hs]|Acc]).
-pacc([H|T], Ys, Acc) :- pacc(T, Ys, [[H]|Acc]).
-pacc([H, G | T], Ys, Acc) :- 
-  H \= G, 
-  pacc([G|T], Ys, [[H]|Acc]).
-
-pack(Xs, Ys) :- once(pacc(Xs, Ys, [])).
+:- include('09').
 
 /* 10.pl */
 
